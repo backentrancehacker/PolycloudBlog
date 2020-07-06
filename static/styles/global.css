@@ -1,0 +1,27 @@
+html, body {
+	height: 100%;
+	width: 100%;
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+	font-family: 'Raleway', sans-serif;
+	color: #212121;
+}
+*, *::before, *::after {
+	box-sizing: inherit;
+}
+#app {
+	height: 100%;
+}
+p {
+	color: #555;
+	font-size: 1.1em;
+}
+a, a:visited {
+	color: dodgerblue;
+	text-decoration: none;
+	font-size: 1.1em;
+}
+a:hover {
+	text-decoration: underline;
+}

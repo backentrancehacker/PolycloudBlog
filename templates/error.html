@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<%- include('./partials/seo.html', {title: 'Error'}); %>
+	<%- include('./partials/assets.html'); %>
+	<link href="/styles/error.css" rel="stylesheet" />
+</head>
+<body>
+	<div id="app">
+		<% if(locals.error == 404) { %>
+			<h1>Not Found <div></div></h1>
+			<p>We couldn't find that link. Go <a href="/">home</a>?</p>
+		<% } 
+		else { %>
+			<h1>Internal Server Error <div></div></h1>
+			<p>The server crashed! Go <a href="/">home</a>?</p>
+		<% } %>
+	</div>
+</body>
+</html>

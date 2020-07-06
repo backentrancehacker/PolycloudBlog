@@ -1,0 +1,24 @@
+#app {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+}
+h1 {
+	font-size: 3em;
+	margin: 0;
+	vertical-align: middle;
+	padding: 0 0.3em 0 0 ;
+	white-space: nowrap;
+	border-right: 4px solid #212121;
+	animation: type 0.5s alternate infinite;
+}
+@keyframes type {
+	from {
+		border-color: transparent;
+	}
+	to {
+		border-color: #212121;
+	}
+}
