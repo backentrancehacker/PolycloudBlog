@@ -11,11 +11,14 @@
 		<%- include('./partials/header.html'); %>
 		<main>
 			<% for(let article of articles) { 
-				let {data} = article %>
+				let {data} = article 
+				let sum = data.content.toString().split('\n')
+				let disp = sum[0].charAt(0) == '#' ? sum[1] : sum[0]
+				%>
 				<div class="card">
 					<h1><%= article.id %></h1>
 					<p><%= data.meta %> by <%= data.author %></p>
-					<p><%= data.content.toString().split('\n')[0] %></p>
+					<p><%= disp %></p>
 					<a href="/posts/<%= article.id.replace(/ /g, '-') %>">Read More</a>
 				</div>
 			<% } %>

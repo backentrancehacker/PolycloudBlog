@@ -15,8 +15,8 @@
 			<p>Since you're here, you can: </p>
 			<button id="new">New Post</button>
 			<button id="log">Log Out</button>
-			<h1>Your Posts</h1>
-			<p>Here are some popular posts: </p>
+			<h1>All Posts</h1>
+			<p>Here are some posts. </p>
 			<div class="posts">
 				<% for(let article of articles) { %>
 					<a href="/posts/<%= article.id.replace(/ /g, '-') %>"><h2><%= article.id%></h2></a>
