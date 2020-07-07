@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<%- include('./partials/seo.html', {title: 'Blog'}); %>
+	<%- include('./partials/assets.html'); %>
+	<link href="/styles/page.css" rel="stylesheet" />
+</head>
+<body>
+	<div id="app">
+		<%- include('./partials/header.html'); %>
+		<main>
+			<div class="card">
+				<h1><%= id %></h1>
+				<p><%= meta %> by <%= author %></p>
+				<%- content%>
+			</div>
+		</main>
+	</div>
+</body>
+</html>

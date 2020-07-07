@@ -1,0 +1,43 @@
+#app {
+	width: 100%;
+	display: flex;
+	align-items: stretch;
+}
+aside {
+	flex: 0 0 20%;
+	background: dodgerblue;
+	background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('/images/bubbles.jpg');
+	background-position: center;
+	background-size: cover;
+}
+main {
+	flex: 0 0 80%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+main .error {
+	margin: 0 0 1.5em 0;
+	background: red;
+	color: #fff;
+	border-radius: 2px;
+	padding: 1em;
+}
+main form {
+	display: flex;
+	flex-direction: column;
+}
+form input {
+	outline: none;
+	border-radius: 2px;
+	border: 1px solid #212121;
+	color: grey;
+	font-size: 100%;
+	padding: 0.5em 1em;
+	margin: 0 0 1em 0;
+}
+form input:focus {
+	color: #212121;
+	border-color: dodgerblue;
+}

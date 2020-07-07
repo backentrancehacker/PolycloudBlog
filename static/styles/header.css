@@ -1,0 +1,19 @@
+header {
+	padding: 0.5em 1em;
+	background: #fff;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: 1;
+	transition: 0.3s box-shadow;
+}
+header a, header a:hover {
+	text-decoration: none;
+}
+header > a:first-child {
+	color: #212121;
+}

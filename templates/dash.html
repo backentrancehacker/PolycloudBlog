@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<%- include('./partials/seo.html', {title: 'Dashboard'}); %>
+	<%- include('./partials/assets.html'); %>
+	<link href="/styles/page.css" rel="stylesheet" />
+	<link href="/styles/dash.css" rel="stylesheet" />
+	<script src="/scripts/dash.js" defer></script>
+</head>
+<body>
+	<div id="app">
+		<%- include('./partials/header.html', {remove: true}); %>
+		<main>
+			<h1>Welcome back, <%- username%>.</h1>
+			<p>Since you're here, you can: </p>
+			<button id="new">New Post</button>
+			<button id="log">Log Out</button>
+			<h1>Your Posts</h1>
+			<p>Here are some popular posts: </p>
+			<div class="posts">
+				<% for(let article of articles) { %>
+					<a href="/posts/<%= article.id.replace(/ /g, '-') %>"><h2><%= article.id%></h2></a>
+			<% } %>
+			</div>
+			<h1>PolyBlog Information</h1>
+			<p>PolyBlog was developed by <a href="https://twitter.com/AdCharity2">@AdCharity</a>. It is a simple blogging platform to put random posts.</p>
+			<p>Currently, PolyBlog is powered by Firestore, Express, EJS, and Cookie Parser. You can find the Github repository online <a href="https://github.com/backentrancehacker">here</a>.</p>
+		</main>
+	</div>
+</body>
+</html>

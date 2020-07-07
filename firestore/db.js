@@ -50,7 +50,7 @@ const fetch = async (collection, {method, id, data, settings, query}) => {
 		case 'GET': {
 			if(id) {
 				const doc = await collection.doc(id).get()
-				return !doc.exists ? false : doc.data()
+				return !doc.exists ? false : {id, data: doc.data()}
 			}
 			else {
 				const snapshot = await collection.get()

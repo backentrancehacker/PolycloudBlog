@@ -17,6 +17,10 @@ p {
 	color: #555;
 	font-size: 1.1em;
 }
+::selection {
+	background-color: gainsboro;
+	color: #fff;
+}
 a, a:visited {
 	color: dodgerblue;
 	text-decoration: none;
@@ -24,4 +28,31 @@ a, a:visited {
 }
 a:hover {
 	text-decoration: underline;
+}
+img {
+	image-rendering: optimizeSpeed;
+	border-radius: 2px;
+	max-width: 100%;
+}
+code {
+    font-family: monospace !important;
+    color: #C7254E;
+    font-size: 100%;
+    border-radius: 2px;
+    padding: 2px 4px;
+    background-color: #F9F2F4;
+}
+pre code {
+    color: #000;
+    font-size: 100%;
+    tab-size: 4;
+    padding: 0;
+    background: none;
+}
+pre {
+    display: inline-block;
+    border: 1px solid #DDDDDD;
+    border-radius: 2px;
+    padding: 10px 16px;
+    background-color: #F8F8F8;
 }

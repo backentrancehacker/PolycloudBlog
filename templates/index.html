@@ -3,7 +3,23 @@
 <head>
 	<%- include('./partials/seo.html', {title: 'Blog'}); %>
 	<%- include('./partials/assets.html'); %>
+	<link href="/styles/page.css" rel="stylesheet" />
+	<link href="/styles/index.css" rel="stylesheet" />
 </head>
 <body>
+	<div id="app">
+		<%- include('./partials/header.html'); %>
+		<main>
+			<% for(let article of articles) { 
+				let {data} = article %>
+				<div class="card">
+					<h1><%= article.id %></h1>
+					<p><%= data.meta %> by <%= data.author %></p>
+					<p><%= data.content.toString().split('\n')[0] %></p>
+					<a href="/posts/<%= article.id.replace(/ /g, '-') %>">Read More</a>
+				</div>
+			<% } %>
+		</main>
+	</div>
 </body>
 </html>

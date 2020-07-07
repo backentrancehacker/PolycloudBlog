@@ -1,0 +1,52 @@
+button.winona {
+	font-family: 'Raleway', sans-serif;
+	user-select: none;
+	overflow: hidden;
+	outline: none;
+	color: #212121;
+	border: 1px solid #212121;
+	border-radius: 2px;
+	background: none;
+	vertical-align: middle;
+	position: relative;
+	cursor: pointer;
+	text-transform: none;
+	line-height: normal;
+	font-size: 100%;
+	padding: 0;
+	text-rendering: auto;
+	letter-spacing: normal;
+	text-align: center;
+	transition: background 0.3s ease,
+				border 0.3s ease;
+}
+button.winona::after, 
+button.winona span {
+	padding: 0.5em 1em;
+	display: block;
+	transition: transform 0.3s ease,
+				opacity 0.3s ease;
+}
+button.winona:hover {
+	border-color: dodgerblue;
+	background: rgba(30, 143, 255, 0.3);
+}
+button.winona:hover > span {
+	opacity: 0;
+	transform: translate(0, -25%);
+}
+button.winona::after {
+	content: attr(data-text);
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	opacity: 0;
+	color: rgb(27, 115, 204);
+	transform: translate(0, 25%);
+}
+button.winona:hover::after {
+	opacity: 1;
+	transform: translate(0, 0);
+}

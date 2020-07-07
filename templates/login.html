@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<%- include('./partials/seo.html', {title: 'PolyBlog'}); %>
+	<%- include('./partials/assets.html'); %>
+	<link href="/styles/login.css" rel="stylesheet"/>
+</head>
+<body>
+	<div id="app">
+		<aside></aside>
+		<main>
+			<h1>PolyBlog</h1>
+			<% if(locals.error) { %>
+				<div class="error">Failed to sign in.</div>
+			<% } %>
+			<form action="/login" method="post"  enctype="application/x-www-form-urlencoded">
+				<input type="text" name="username" autocomplete="off" placeholder="Username" required />
+				<input type="password" name="password" autocomplete="off" placeholder="Password" required />
+				<button class="winona" data-text="Log In" type="submit">
+					<span>Log In</span>
+				</button>
+			</form>
+		</main>
+	</div>
+</body>
+</html>

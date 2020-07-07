@@ -1,0 +1,8 @@
+#app > main {
+	padding: calc(84px + 1em) 1em 4em 1em;
+	max-width: 48em;
+	margin: 0 auto;
+}
+.card {
+	padding: 2em;
+}

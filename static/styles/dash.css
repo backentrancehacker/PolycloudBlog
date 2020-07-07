@@ -1,0 +1,103 @@
+button,
+input[type=button] {
+	outline: 0;
+	border: 2px solid;
+	border-radius: 2px;
+	color: #fff;
+	font-size: 100%;
+	padding: 0.5em;
+	cursor: pointer;
+	transition: background 0.3s ease;
+	text-decoration: none;
+}
+#new {
+	background: dodgerblue;
+	border-color: dodgerblue;
+}
+#new:hover {
+	background: rgb(20, 100, 170);
+}
+#log {
+	background: red;
+	border-color: red;
+}
+#log:hover {
+	background: rgb(190, 0, 0);
+}
+.posts {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+}
+.posts a {
+	flex: 0 0 calc(100% / 3);
+}
+.posts a, .posts a h2 {
+	white-space: nowrap;
+	overflow-x: hidden;
+	text-overflow: ellipsis;
+}
+#new-wrapper {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 2;
+	background: rgba(0, 0, 0, 0.5);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	animation: fade-in 0.5s linear forwards;
+}
+#new-post {
+	border-radius: 2px;
+	display: flex;
+	flex-direction: column;
+	padding: 1em;
+	min-width: 40vw;
+	border: 1px solid #212121;
+	background: #fff;
+}
+#new-post input[type=text],
+#new-post textarea {
+	font-family: 'Raleway', sans-serif;	
+	font-size: 100%;
+	padding: 0.5em 1em;
+	outline: none;
+	border-radius: 2px;
+	border: 1px solid #212121;
+	color: grey;
+	margin: 0 0 1em 0;
+}
+#new-post input[type=text]:focus,
+#new-post textarea:focus {
+	color: #212121;
+	border-color: dodgerblue;
+}
+#new-post textarea {
+	resize: vertical;
+	min-height: 10em;
+}
+@keyframes fade-in {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+#preview {
+	margin: 0 0 1em 0;
+	border-color: #32CD32;
+	background: #32CD32;
+}
+#preview:hover {
+	background: rgb(35, 150, 35);
+}
+#new-wrapper > img {
+	height: 3em;
+	width: 3em;
+	margin: 0 1em 0 0;
+	cursor: pointer;
+}
