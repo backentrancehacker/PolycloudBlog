@@ -19,7 +19,7 @@
 			<p>Here are some posts. </p>
 			<div class="posts">
 				<% for(let article of articles) { %>
-					<a href="/posts/<%= article.id.replace(/ /g, '-') %>"><h2><%= article.id%></h2></a>
+					<a href="/posts/<%= article.id %>"><h2><%= article.data.title%></h2></a>
 			<% } %>
 			</div>
 			<h1>PolyBlog Information</h1>

@@ -42,6 +42,12 @@ const fetch = async (collection, {method, id, data, settings, query}) => {
 				}
 			}
 		}
+		case 'POST': {
+			let cache = data
+			cache.timestamp = admin.firestore.FieldValue.serverTimestamp()
+			const res = await collection.add(cache)
+			return res
+		}
 		case 'SET': {
 			if(!id) throw new Error('Cannot set "undefined" id.')
 			const res = await collection.doc(id).set(data, settings || {})
@@ -53,7 +59,7 @@ const fetch = async (collection, {method, id, data, settings, query}) => {
 				return !doc.exists ? false : {id, data: doc.data()}
 			}
 			else {
-				const snapshot = await collection.get()
+				const snapshot = await collection.orderBy("timestamp", "desc").get()
 				let fetched = []
 				snapshot.forEach(doc => {
 					fetched.push({

@@ -1,8 +1,7 @@
 const express = require('express')
 const cookieParser = require('cookie-parser')
 const path = require('path')
-var md = require('markdown-it')()
-// var result = md.render('# markdown-it rulezz!');
+const md = require('markdown-it')()
 
 const firestore = require('./firestore/db')
 const utils = require('./utils')
@@ -35,13 +34,13 @@ const server = app => {
 		if(!id) res.status(404).render('error', {error: 404})
 		let article = await firestore.fetch(firestore.articles, {
 			method: 'GET',
-			id: id.split('-').map(val => utils.cap(val)).join(' ')
+			id
 		})
 		if(!article) res.status(404).render('error', {error: 404})
 		else {
-			let {content, author, meta} = article.data
-			content = md.render(content)
-			res.render('page', {content, author, meta, id: article.id})
+			let toRender = article.data
+			toRender.content = md.render(toRender.content)
+			res.render('page', toRender)
 		}
 	})
 	app.get('/dash', async (req, res) => {
@@ -75,9 +74,9 @@ const server = app => {
 		if(users.hasOwnProperty(username) && users[username] == password) {
 			const {title, content} = req.body
 			await firestore.fetch(firestore.articles, {
-				method: 'SET',
-				id: title.split(' ').map(val => utils.cap(val)).join(' '),
+				method: 'POST',
 				data: {
+					title: title.split(' ').map(val => utils.cap(val)).join(' '),
 					content: content,
 					meta: utils.stamp(),
 					author: username
@@ -106,5 +105,4 @@ const server = app => {
 		res.status(500).render('error', {error: 500})
 	})
 }
-
 module.exports = server

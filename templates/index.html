@@ -16,10 +16,10 @@
 				let disp = sum[0].charAt(0) == '#' ? sum[1] : sum[0]
 				%>
 				<div class="card">
-					<h1><%= article.id %></h1>
+					<h1><%= data.title %></h1>
 					<p><%= data.meta %> by <%= data.author %></p>
 					<p><%= disp %></p>
-					<a href="/posts/<%= article.id.replace(/ /g, '-') %>">Read More</a>
+					<a href="/posts/<%= article.id %>">Read More</a>
 				</div>
 			<% } %>
 		</main>
