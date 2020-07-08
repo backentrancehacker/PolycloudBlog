@@ -6,3 +6,29 @@
 .card {
 	padding: 2em;
 }
+button {
+	outline: 0;
+	border: 2px solid;
+	border-radius: 2px;
+	color: #fff;
+	font-size: 100%;
+	padding: 0.5em;
+	cursor: pointer;
+	transition: background 0.3s ease;
+	text-decoration: none;
+}
+#edit {
+	background: dodgerblue;
+	border-color: dodgerblue;
+	margin: 0 0.5em 0 0;
+}
+#edit:hover {
+	background: rgb(20, 100, 170);
+}
+#delete {
+	background: red;
+	border-color: red;
+}
+#delete:hover {
+	background: rgb(190, 0, 0);
+}

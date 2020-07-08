@@ -10,15 +10,6 @@ function log() {
 	fullList += '\n'
 	console.log(fullList)
 }
-function passwords() {
-	let _passwords = process.env.passwords.toString().split('|')
-	let tree = {}
-	for(let user of _passwords) {
-		let parts = user.split('=')
-		tree[parts[0]] = parts[1]
-	}
-	return tree
-}
 const stamp = () => {
 	const months = ['Jan', 'Feb', 'Mar', "Apr", 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 	const weekdays = ['Mon', 'Tues', 'Wed', 'Thurs', 'Fri', 'Sat', 'Sun']
@@ -31,10 +22,43 @@ const stamp = () => {
 	return `${day} ${month} ${today.getDate()} ${year}`
 }
 const cap = str => str.trim().charAt(0).toUpperCase() + str.slice(1)
+
+const passwords = () => {
+	let _passwords = process.env.passwords.toString().split('|')
+	let tree = {}
+	for(let user of _passwords) {
+		let parts = user.split('=')
+		tree[parts[0]] = parts[1]
+	}
+	return tree
+}
+
+const users = passwords()
+
+const validate = (username, password) => users.hasOwnProperty(username) && users[username] == password
+const credentials = req => {
+	let user = (req.cookies['user'] || '').toString().split('|')
+	let [username, password] = user
+	if(user.length !== 2) {
+		return 'denied'
+	}
+	else if(validate(username, password)) {
+		return {
+			username,
+			password
+		}
+	}
+	else {
+		return 'denied'
+	}
+}
+
 module.exports = {
 	log,
 	cap,
 	time,
 	stamp,
-	passwords
+	validate,
+	passwords,
+	credentials
 }

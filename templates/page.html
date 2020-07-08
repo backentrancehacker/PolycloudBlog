@@ -1,18 +1,29 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<%- include('./partials/seo.html', {title: 'Blog'}); %>
+	<%- include('./partials/seo.html', {title: locals.title}); %>
 	<%- include('./partials/assets.html'); %>
 	<link href="/styles/page.css" rel="stylesheet" />
+	<% if(locals.user !== 'denied') { %>
+		<script>
+			const id = "<%= id%>"
+			const original = `<%= user.replace(/\`/g, "\\`") %>`
+		</script>
+		<script src="/scripts/edit.js" defer></script>
+	<% } %>
 </head>
 <body>
 	<div id="app">
-		<%- include('./partials/header.html'); %>
+		<%- include('./partials/header.html', {remove: locals.user !== 'denied'}); %>
 		<main>
 			<div class="card">
-				<h1><%= title %></h1>
+				<h1 id="title"><%= title %></h1>
 				<p><%= meta %> by <%= author %></p>
-				<%- content%>
+				<div id="content">
+					<%- content%>
+				</div>
+				<div id="options">
+				</div>
 			</div>
 		</main>
 	</div>

@@ -48,8 +48,16 @@ const fetch = async (collection, {method, id, data, settings, query}) => {
 			const res = await collection.add(cache)
 			return res
 		}
+		case 'UPDATE': {
+			if(!id) throw new Error('Cannot update "undefined" id.')
+			const res = await collection.doc(id).update(data, settings || {})
+			return res
+		}
 		case 'SET': {
-			if(!id) throw new Error('Cannot set "undefined" id.')
+			if(!id) {
+				const res = await fetch(collection, {method: 'POST'})
+				return res
+			}
 			const res = await collection.doc(id).set(data, settings || {})
 			return res
 		}

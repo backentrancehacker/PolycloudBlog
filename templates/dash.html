@@ -19,8 +19,8 @@
 			<p>Here are some posts. </p>
 			<div class="posts">
 				<% for(let article of articles) { %>
-					<a href="/posts/<%= article.id %>"><h2><%= article.data.title%></h2></a>
-			<% } %>
+					<h2><a href="/posts/<%= article.id %>"><%= article.data.title%></a></h2>
+				<% } %>
 			</div>
 			<h1>PolyBlog Information</h1>
 			<p>PolyBlog was developed by <a href="https://twitter.com/AdCharity2">@AdCharity</a>. It is a simple blogging platform to put random posts.</p>

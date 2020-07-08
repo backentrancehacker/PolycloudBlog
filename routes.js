@@ -6,7 +6,6 @@ const md = require('markdown-it')()
 const firestore = require('./firestore/db')
 const utils = require('./utils')
 
-const users = utils.passwords()
 const denied = '?error=denied'
 
 const server = app => {
@@ -18,7 +17,10 @@ const server = app => {
 	   .use(express.urlencoded({ extended: true }))
 	   .use(express.static('static'))
 	   .use(cookieParser())
-
+	   
+	app.all('/keep', (req, res) => {
+		res.send('Kept Alive')
+	})
 	app.get('/', async (req, res) => {
 		let articles = await firestore.fetch(firestore.articles, {
 			method: 'GET'
@@ -39,23 +41,29 @@ const server = app => {
 		if(!article) res.status(404).render('error', {error: 404})
 		else {
 			let toRender = article.data
-			toRender.content = md.render(toRender.content)
+			let cache = toRender.content
+
+			let user = utils.credentials(req)
+			if(user !== 'denied') user = user.username == toRender.author ? cache : 'denied'
+
+			Object.assign(toRender, {
+				content: md.render(cache),
+				id: article.id,
+				user
+			})
 			res.render('page', toRender)
 		}
 	})
 	app.get('/dash', async (req, res) => {
-		let user = (req.cookies['user'] || '').toString().split('|')
-		if(user.length !== 2) return res.redirect(`/login${denied}`)
-
-		let [username, password] = user
-		
-		if(users.hasOwnProperty(username) && users[username] == password) {
-			let articles = await firestore.fetch(firestore.articles, {
-				method: 'GET'
-			})
-			res.render('dash', {username, articles})
+		let user = utils.credentials(req)
+		if(user == 'denied') {
+			res.redirect(`/login${denied}`)	
 		}
-		else res.redirect(`/login${denied}`)	
+		else {
+			let articles = await firestore.fetch(firestore.articles, {method: 'GET'})
+			res.render('dash', {username: user.username, articles})
+		}
+			
 	})
 	app.get('/logout', (req, res) => {
 		res.clearCookie('user')
@@ -66,35 +74,62 @@ const server = app => {
 	})
 
 	app.post('/dash', async (req, res) => {
-		let user = (req.cookies['user'] || '').toString().split('|')
-		if(user.length !== 2) return res.redirect(`/login${denied}`)
-
-		let [username, password] = user
-		
-		if(users.hasOwnProperty(username) && users[username] == password) {
+		let user = utils.credentials(req)
+		if(user == 'denied') {
+			res.redirect(`/login${denied}`)
+		}
+		else {
 			const {title, content} = req.body
 			await firestore.fetch(firestore.articles, {
 				method: 'POST',
 				data: {
 					title: title.split(' ').map(val => utils.cap(val)).join(' '),
-					content: content,
+					content,
 					meta: utils.stamp(),
-					author: username
+					author: user.username
 				}
 			})
+			res.redirect('/dash')
+		}		
+	})
+	app.post('/post', async (req, res) => {
+		let user = utils.credentials(req)
+		if(user == 'denied') return res.redirect(`/login${denied}`)	
+		if(req.body.hasOwnProperty('remove')) {
+			await firestore.fetch(firestore.articles, {
+				method: 'REMOVE',
+				id: req.body.id
+			})
+			res.send('/')
+		}
+		else {
+			const {id, title, content} = req.body
+			try {
+				await firestore.fetch(firestore.articles, {
+					method: 'UPDATE',
+					id,
+					data: {
+						title: title.split(' ').map(val => utils.cap(val)).join(' '), 
+						content,
+						meta: utils.stamp()
+					}
+				})
+				res.redirect(`/posts/${id}`)
+			}
+			catch(e) {
+				res.redirect(`/login${denied}`)	
+			}
+		}
+	})
+	app.post('/login', (req, res) => {
+		const {username, password} = req.body
+		if(utils.validate(username, password)) {
+			res.cookie("user", `${username}|${password}`, {overwrite: true})
 			res.redirect('/dash')
 		}
 		else {
 			res.redirect(`/login${denied}`)
 		}
-	})
-	app.post('/login', (req, res) => {
-		const {username, password} = req.body
-		if(users.hasOwnProperty(username) && users[username] == password) {
-			res.cookie("user", `${username}|${password}`, {overwrite: true})
-			res.redirect('/dash')
-		}
-		else res.redirect(`/login${denied}`)
 	})
 
 	app.use((req, res) => {	
