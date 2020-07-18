@@ -57,6 +57,7 @@ pre {
     border-radius: 2px;
     padding: 10px 16px;
     background-color: #F8F8F8;
+	overflow-x: scroll;
 }
 q, blockquote {
 	border-left: 0.3em solid gainsboro;

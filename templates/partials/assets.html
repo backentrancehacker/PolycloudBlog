@@ -4,3 +4,8 @@
 <link href="/styles/header.css" rel="stylesheet" />
 
 <script src="/scripts/header.js" defer></script>
+<script defer>
+if (location.protocol !== 'https:') {
+    location.replace(`https:${location.href.substring(location.protocol.length)}`)
+}
+</script>

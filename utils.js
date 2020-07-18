@@ -16,7 +16,7 @@ const stamp = () => {
 	let today = new Date()
 	
 	let day = weekdays[today.getDay()],
-		month = weekdays[today.getMonth()],
+		month = months[today.getMonth()],
 		year = today.getFullYear()
 
 	return `${day} ${month} ${today.getDate()} ${year}`
